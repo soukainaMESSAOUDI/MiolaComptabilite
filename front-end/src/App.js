@@ -11,6 +11,11 @@ import Wizard from './Steps/Wizard';
 import ProgrammeComponent from './Components/ProgrammeComponent';
 import Step1Component from './Components/Step1Component';
 
+import Professeur from './Vacations/Professeur';
+import ProfesseurList from './Vacations/ProfesseurList';
+
+
+
 function App() {
   return (
     <>
@@ -25,6 +30,9 @@ function App() {
 
           <Route path="/programmes" exact component={ProgrammeComponent} />
           <Route path="/add1" exact component={Step1Component} />
+          <Route path="/vacations" exact component={Professeur}/>
+          <Route path="/Professeurs" exact component={ProfesseurList}/>
+
         </Switch>
       </Router>
     </>

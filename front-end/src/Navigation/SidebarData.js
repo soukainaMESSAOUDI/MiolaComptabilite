@@ -27,7 +27,7 @@ export const SidebarData = [
 
     {
         title: 'Vacations',
-        path: '/vacations',
+        path: '/Professeurs',
         icon: <FontAwesomeIcon icon={faUserTie} />,
         cName: 'nav-text'
     },
