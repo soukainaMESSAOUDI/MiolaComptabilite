@@ -39,8 +39,6 @@ export default class ProfesseurList extends Component {
 		  });
 	  };
 	
-
-
 	render() {
     	return (
         	<div>
@@ -56,9 +54,15 @@ export default class ProfesseurList extends Component {
             	<tr>
                 	<th>Nom Complet</th>
                 	<th>Le Grade  </th>
-                	<th>Nombre de jours </th>
-					<th>Vacation </th>
-					<th>Actions </th>
+                	<th>Volume Horaire </th>
+					<th>Le type </th>
+					<th>Salaire Brute</th>
+					<th>Salaire Net</th>
+					<th>Nombre de jours</th>
+					<th>Le buget alloué pour les vacations</th>
+					<th>Le Total des vacations</th>
+					<th>Le Reste du Budget</th>
+					
                 </tr>
         	</thead>
         	<tbody>
@@ -70,17 +74,15 @@ export default class ProfesseurList extends Component {
                   	<tr key={professeur.id}>
                   		<td>{professeur.nomComplet}</td>
                   		<td>{professeur.grade}</td>
-                  		<td>{professeur.nbrJour} </td>
-						<td>{professeur.vacation} MAD </td>
-						<td>
-							<Button size="sm" className="btn btn-info" >
-                     			 Modifier
-                    		</Button>
-                            <Button size="sm" className="btn btn-info" onClick={()=>this.Supprimer(professeur.id)}>
-                     			 Supprimer
-                    		</Button>
-						</td>
-					
+                  		<td>{professeur.nbrHeur} </td>
+						<td>{professeur.type} </td>
+						<td>{professeur.brute} MAD </td>
+						<td>{professeur.net} MAD </td>
+						<td>{professeur.jours} </td>
+						<td>{professeur.somme} MAD </td>
+						<td>{professeur.totalVacation} MAD </td>
+						<td>{professeur.reste} MAD </td>
+						
                   	</tr>
 					  
                 	))

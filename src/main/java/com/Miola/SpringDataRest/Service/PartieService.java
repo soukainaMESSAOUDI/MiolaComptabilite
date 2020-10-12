@@ -18,10 +18,6 @@ public class PartieService {
 
 	public Partie savePartie(Partie partie) {
 		partie.setProgramme(programmeService.getCurrentProgramme());
-		Double budget = programmeService.getCurrentProgramme().getBudget();
-		int percent = partie.getPourcentage();
-		Double somme = (budget * percent) / 100;
-		partie.setSomme(somme);
 		return partieRepo.save(partie);
 	}
 
@@ -46,6 +42,10 @@ public class PartieService {
 
 	public void updatePartie(Long id, Partie partie) {
 		partieRepo.save(partie);
+	}
+	
+	public Partie getVacation() {
+		return getPartieById(partieRepo.count());
 	}
 
 }

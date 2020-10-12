@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import com.Miola.SpringDataRest.Service.ProgrammeService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -31,14 +32,36 @@ public class Partie {
 	private String reference;
 	@NonNull
 	private String designation;
-	private int pourcentage;
 	@NonNull
-	private Double somme;
+	private Double pourcentage;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "programme")
 	@JsonIgnore
 	private Programme programme;
 	
 
-
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="partie")
+	@JsonIgnore
+  	public List<Professeur> profs;
+	
+	
+	public Double getSomme() {
+		Double budget = programme.getBudget();
+		Double percent = this.getPourcentage();
+		return (budget * percent) / 100;
+	}
+	
+	public Double getTotalVacation() {
+		Double s=.0;
+		for(Professeur p:profs)
+			s+=p.getNet();
+		return s;
+	}
+	
+	public Double getReste() {
+		return this.getSomme()-this.getTotalVacation();
+	}
+	
+	
 }
