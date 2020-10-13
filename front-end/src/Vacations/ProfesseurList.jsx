@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
-import { ButtonGroup, Button, Card, Table } from 'react-bootstrap';
+import { ButtonGroup, Button, Card, Table,Jumbotron} from 'react-bootstrap';
 import { faList, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-
+import Vacation from './Vacation';
+import Chart from './Chart';
+import "./Wizard.css";
 export default class ProfesseurList extends Component {
 	constructor(props) {
     	super(props);
-		this.state = { professeurs: [] };
+		this.state = { 
+			professeurs: []
+		 };
 		this.addProfesseur=this.addProfesseur.bind(this);
-		this.Supprimer=this.Supprimer.bind(this);
+	
 	}
 	componentDidMount() {
-    	fetch('http://localhost:8080/Professeurs')
+		this.getProfesseurs();
+	}
+	getProfesseurs(){
+		fetch('http://localhost:8080/Professeurs')
         	.then((response) => response.json())
         	.then((responseData) => {
             	this.setState({
@@ -42,16 +49,26 @@ export default class ProfesseurList extends Component {
 	render() {
     	return (
         	<div>
-        	<Card className={"border border-dark bg-dark text-white"}>
+			<div class="row">
+				<div classname="col-md-8" float="left">
+					<Chart/>
+				</div>
+				<div classname="col-md-4" >
+					<Vacation/>
+				</div>
+				
+			</div>
+				
+        	<Card>
         	<Card.Header className="text-center"> 
-				<h3>Liste des professeurs</h3>
+				<h2>Liste des professeurs</h2>
 			</Card.Header>
         	<Card.Body>
 			<Button size="sm" variant="btn btn-primary my-3" marginRight='O' onClick={this.addProfesseur}>			
                 	Ajouter un Professeur
              </Button>
-        	<Table bordered hover striped variant="dark"><thead>
-            	<tr>
+        	<Table><thead>
+            	<tr className=" bg-dark text-white">
                 	<th>Nom Complet</th>
                 	<th>Le Grade  </th>
                 	<th>Volume Horaire </th>
@@ -59,9 +76,7 @@ export default class ProfesseurList extends Component {
 					<th>Salaire Brute</th>
 					<th>Salaire Net</th>
 					<th>Nombre de jours</th>
-					<th>Le buget alloué pour les vacations</th>
-					<th>Le Total des vacations</th>
-					<th>Le Reste du Budget</th>
+					
 					
                 </tr>
         	</thead>
@@ -79,9 +94,7 @@ export default class ProfesseurList extends Component {
 						<td>{professeur.brute} MAD </td>
 						<td>{professeur.net} MAD </td>
 						<td>{professeur.jours} </td>
-						<td>{professeur.somme} MAD </td>
-						<td>{professeur.totalVacation} MAD </td>
-						<td>{professeur.reste} MAD </td>
+						
 						
                   	</tr>
 					  

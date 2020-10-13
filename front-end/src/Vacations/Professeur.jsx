@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Card, Form, Col , Button} from 'react-bootstrap';
+import "./Wizard.css";
 export default class Professeur extends Component{
   initialState = {
 	nomComplet:'',
@@ -38,50 +39,48 @@ export default class Professeur extends Component{
   }
   render(){
 	return(
-  	<Card className={"border border-dark bg-dark text-white"}>
+	<div className="stepper-container-horizontal">
+  	<Card className="card-resume">
         	<Card.Header>
-           	Ajouter une Professeur
+           	<h3>Ajouter un Professeur </h3>
           	</Card.Header>
         	<Form onSubmit={this.submitProfesseur} id="ProfesseurFormId">
         	<Card.Body>
-        	<Form.Row>
 			<Form.Group as={Col} controlId="formGridCouleur">
             	<Form.Label> Le nom complet </Form.Label>
-            	<Form.Control name="nomComplet" autoComplete="off" required type="text" className={"bg-dark text-white"}
+            	<Form.Control name="nomComplet" autoComplete="off" required type="text" 
               	value = {this.state.nomComplet}  onChange = {this.professeurChange} placeholder= "Entrez Le Nom "/>
             	</Form.Group>
             	<Form.Group as={Col} controlId="formGridGrade">
             	<Form.Label> Le grade </Form.Label>
-            	<select class="form-control bg-dark text-white" name="grade" onChange = {this.professeurChange} value = {this.state.grade}  onChange = {this.professeurChange}>
+            	<select class="form-control" name="grade" onChange = {this.professeurChange} value = {this.state.grade}  onChange = {this.professeurChange}>
       				<option>PA</option>
      				<option>PH</option>
      				<option>PES</option>
     			</select>
 				</Form.Group>
+				
 				<Form.Group as={Col} controlId="formGridGrade">
             	<Form.Label> Le Type </Form.Label>
-            	<select class="form-control bg-dark text-white" name="type" onChange = {this.professeurChange} value = {this.state.type}  onChange = {this.professeurChange}>
+            	<select class="form-control" name="type" onChange = {this.professeurChange} value = {this.state.type}  onChange = {this.professeurChange}>
       				<option>Interne</option>
      				<option>Externe</option>
-     				
     			</select>
 				</Form.Group>
 				
             	<Form.Group as={Col} controlId="formGridCouleur">
             	<Form.Label> Volume horaire </Form.Label>
-            	<Form.Control name="nbrHeur" autoComplete="off" required type="text" className={"bg-dark text-white"}
+            	<Form.Control name="nbrHeur" autoComplete="off" required type="number" 
               	value = {this.state.nbrHeur}  onChange = {this.professeurChange} placeholder= "Entrez Le Volume horaire "/>
             	</Form.Group>
-				
-        	</Form.Row>
         	</Card.Body>
         	<Card.Footer style={{"textAlign":"right"}}>
-            	<Button size="sm" variant="success" type="submit" >  Submit </Button>{' '}
+            	<Button size="sm" variant="success" type="submit" >  Enregistrer </Button>{' '}
             	<Button size="sm" variant="info" type="reset">  Reset </Button>
         	</Card.Footer>
         	</Form>
         	</Card>
-
+		</div>
       	);
       	}
     	}
