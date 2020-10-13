@@ -38,20 +38,7 @@ public class Professeur {
 	@JoinColumn(name = "partie")
 	@JsonIgnore
 	private Partie partie;
-	
-	//TEST
-	public double getSomme() {
-		return partie.getSomme();
-	}
-	
-	public double getTotalVacation() {
-		return partie.getTotalVacation();
-	}
-	
-	public double getReste() {
-		return partie.getReste();
-	}
-	
+
 	public double getBrute() {
 		return 300*this.nbrHeur;
 	}
