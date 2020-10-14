@@ -1,6 +1,6 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
-import { Form, Col, Button, ListGroup, Card, Toast, Row } from 'react-bootstrap';
+import { Form, Col, Button, Row } from 'react-bootstrap';
 import Stepper from "./Stepper"
 import "./Wizard.css";
 
@@ -29,7 +29,10 @@ class Wizard extends Component {
             currentStep: 1,
             programmeActuel: '',
             pourcentageGlobal: 100,
+
+            list: [],
         };
+
         this.partieChange = this.partieChange.bind(this);
         this.saveParties = this.saveParties.bind(this);
     }
@@ -40,18 +43,20 @@ class Wizard extends Component {
 
     saveParties(event) {
         event.preventDefault();
-        const list = [
-            { pourcentage: this.state.pourcentage1, reference: this.state.reference1, designation: this.state.designation1 },
-            { pourcentage: this.state.pourcentage2, reference: this.state.reference2, designation: this.state.designation2 },
-            { pourcentage: this.state.pourcentage3, reference: this.state.reference3, designation: this.state.designation3 },
-            { pourcentage: this.state.pourcentage4, reference: this.state.reference4, designation: this.state.designation4 }
-        ]
-        axios.post("http://localhost:8080/save-all-parties", list)
-            .then(response => {
-                if (response.data != null) {
-                    console.log("List saved successfully");
-                }
-            })
+
+        if (this.state.pourcentage4 > this.state.pourcentageGlobal) {
+            alert("Veuillez saisir un pourcentage inférieur ou égal à " + this.state.pourcentageGlobal);
+        } else {
+            this.state.pourcentageGlobal -= this.state.pourcentage4;
+            console.log("le pourcentage restant est : " + this.state.pourcentageGlobal);
+            axios.post("http://localhost:8080/save-all-parties", this.state.list)
+                .then(response => {
+                    if (response.data != null) {
+                        console.log("List saved successfully");
+                        this.props.history.push("/programme-actuel");
+                    }
+                })
+        }
     }
 
     getProgrammeActuel() {
@@ -68,14 +73,22 @@ class Wizard extends Component {
     handleClick(clickType, percent) {
         const { currentStep } = this.state;
         let newStep = currentStep;
-        if (clickType === "next" && this.gestionPourcentage(percent) === true) {
+
+        if (clickType === "next" && percent <= this.state.pourcentageGlobal) {
+            this.state.pourcentageGlobal -= percent;
             newStep++;
-        } else if (clickType === "next" && this.gestionPourcentage(percent) === false) {
+            console.log("pourcentages est " + this.state.pourcentageGlobal);
+
+        } else if (clickType === "next" && percent > this.state.pourcentageGlobal) {
             newStep = currentStep;
-        }
-        else {
+            alert("Veuillez saisir un pourcentage inférieur ou égal à " + this.state.pourcentageGlobal);
+
+        } else if (clickType === "previous") {
+            this.state.pourcentageGlobal = parseInt(this.state.pourcentageGlobal) + parseInt(percent);
             newStep--;
+            console.log("pourcentages est " + this.state.pourcentageGlobal);
         }
+
         if (newStep > 0 && newStep <= 5) {
             this.setState({
                 currentStep: newStep
@@ -83,29 +96,16 @@ class Wizard extends Component {
         }
     }
 
-    gestionPourcentage(percent) {
-        const { pourcentageGlobal } = this.state;
-        if (percent <= pourcentageGlobal) {
-            this.setState({
-                pourcentageGlobal: pourcentageGlobal - percent
-            })
-            return true;
-        }
-        else if (percent > pourcentageGlobal) {
-            alert("Veuillez saisir un pourcentage supérieur ou égal à" + pourcentageGlobal);
-            return false;
-        }
-    }
-
     render() {
         const { currentStep } = this.state;
         const list = [
-            { pourcentage: this.state.pourcentage1, reference: this.state.reference1, designation: this.state.designation1 },
-            { pourcentage: this.state.pourcentage2, reference: this.state.reference2, designation: this.state.designation2 },
-            { pourcentage: this.state.pourcentage3, reference: this.state.reference3, designation: this.state.designation3 },
-            { pourcentage: this.state.pourcentage4, reference: this.state.reference4, designation: this.state.designation4 }
-        ]
-        const styleButton = { float: "right" }
+            { pourcentage: this.state.pourcentage1, reference: this.state.reference1, designation: 'Ensias' },
+            { pourcentage: this.state.pourcentage2, reference: this.state.reference2, designation: 'Um5' },
+            { pourcentage: this.state.pourcentage3, reference: this.state.reference3, designation: 'Vacations' },
+            { pourcentage: this.state.pourcentage4, reference: this.state.reference4, designation: 'Charges' }
+        ];
+        this.state.list = list;
+        const styleButton = { float: "right" };
         let view;
         if (currentStep === 1) {
             view =
@@ -116,16 +116,12 @@ class Wizard extends Component {
                             <Form.Control required name="reference1" type="text" value={this.state.reference1}
                                 autoComplete="off" onChange={this.partieChange} placeholder="Saisir la référence" />
                         </Form.Group >
-                        <Form.Group as={Col} controlId="formGridDesignation">
-                            <Form.Label>Désignation :</Form.Label>
-                            <Form.Control required name="designation1" type="text" value={this.state.designation1}
-                                autoComplete="off" onChange={this.partieChange} placeholder="Saisir la désignation" />
-                        </Form.Group>
                         <Form.Group as={Col} controlId="formGridPourcentage">
                             <Form.Label>Pourcentage :</Form.Label>
                             <Form.Control required name="pourcentage1" type="number" value={this.state.pourcentage1}
                                 autoComplete="off" onChange={this.partieChange} placeholder="Saisir le pourcentage" />
                         </Form.Group>
+                        <br />
                         <Row>
                             <Button onClick={() => this.handleClick("next", this.state.pourcentage1)} style={styleButton} variant="dark">Suivant</Button>
                         </Row>
@@ -141,18 +137,14 @@ class Wizard extends Component {
                             <Form.Control required name="reference2" type="text" value={this.state.reference2}
                                 autoComplete="off" onChange={this.partieChange} placeholder="Saisir la référence" />
                         </Form.Group >
-                        <Form.Group as={Col} controlId="formGridDesignation">
-                            <Form.Label>Désignation :</Form.Label>
-                            <Form.Control required name="designation2" type="text" value={this.state.designation2}
-                                autoComplete="off" onChange={this.partieChange} placeholder="Saisir la désignation" />
-                        </Form.Group>
                         <Form.Group as={Col} controlId="formGridPourcentage">
                             <Form.Label>Pourcentage :</Form.Label>
                             <Form.Control required name="pourcentage2" type="number" value={this.state.pourcentage2}
                                 autoComplete="off" onChange={this.partieChange} placeholder="Saisir le pourcentage" />
                         </Form.Group>
                     </Form>
-                    <Button onClick={() => this.handleClick()} variant="dark">Précédent</Button>
+                    <br />
+                    <Button onClick={() => this.handleClick("previous", this.state.pourcentage1)} variant="dark">Précédent</Button>
                     <Button onClick={() => this.handleClick("next", this.state.pourcentage2)} style={styleButton} variant="dark">Suivant</Button>
                 </div>
         }
@@ -165,18 +157,14 @@ class Wizard extends Component {
                             <Form.Control required name="reference3" type="text" value={this.state.reference3}
                                 autoComplete="off" onChange={this.partieChange} placeholder="Saisir la référence" />
                         </Form.Group >
-                        <Form.Group as={Col} controlId="formGridDesignation">
-                            <Form.Label>Désignation :</Form.Label>
-                            <Form.Control required name="designation3" type="text" value={this.state.designation3}
-                                autoComplete="off" onChange={this.partieChange} placeholder="Saisir la désignation" />
-                        </Form.Group>
                         <Form.Group as={Col} controlId="formGridPourcentage">
                             <Form.Label>Pourcentage :</Form.Label>
                             <Form.Control required name="pourcentage3" type="number" value={this.state.pourcentage3}
                                 autoComplete="off" onChange={this.partieChange} placeholder="Saisir le pourcentage" />
                         </Form.Group>
                     </Form>
-                    <Button onClick={() => this.handleClick()} variant="dark">Précédent</Button>
+                    <br />
+                    <Button onClick={() => this.handleClick("previous", this.state.pourcentage2)} variant="dark">Précédent</Button>
                     <Button onClick={() => this.handleClick("next", this.state.pourcentage3)} style={styleButton} variant="dark">Suivant</Button>
                 </div>
         }
@@ -189,36 +177,15 @@ class Wizard extends Component {
                             <Form.Control required name="reference4" type="text" value={this.state.reference4}
                                 autoComplete="off" onChange={this.partieChange} placeholder="Saisir la référence" />
                         </Form.Group >
-                        <Form.Group as={Col} controlId="formGridDesignation">
-                            <Form.Label>Désignation :</Form.Label>
-                            <Form.Control required name="designation4" type="text" value={this.state.designation4}
-                                autoComplete="off" onChange={this.partieChange} placeholder="Saisir la désignation" />
-                        </Form.Group>
                         <Form.Group as={Col} controlId="formGridPourcentage">
                             <Form.Label>Pourcentage :</Form.Label>
                             <Form.Control required name="pourcentage4" type="number" value={this.state.pourcentage4}
                                 autoComplete="off" onChange={this.partieChange} placeholder="Saisir le pourcentage" />
                         </Form.Group>
                     </Form>
-                    <Button onClick={() => this.handleClick()} variant="dark">Précédent</Button>
-                    <Button onClick={() => this.handleClick("next", this.state.pourcentage4)} style={styleButton} variant="dark">Suivant</Button>
-                </div>
-        }
-        else if (currentStep === 5) {
-            view =
-                <div>
-                    {list.map((partie) =>
-                        <Card key={partie.id} className="card-resume">
-                            <Card.Header>{partie.designation} </Card.Header>
-                            <ListGroup>
-                                <ListGroup.Item>Référence :  {partie.reference} </ListGroup.Item>
-                                <ListGroup.Item>Pourcentage : {partie.pourcentage} </ListGroup.Item>
-                                <ListGroup.Item>Somme : {this.state.programmeActuel.budget * partie.pourcentage / 100} </ListGroup.Item>
-                            </ListGroup>
-                        </Card>
-                    )}
-                    <Button onClick={() => this.handleClick()} variant="dark">Précédent</Button>
-                    <Button variant="success" onClick={this.saveParties} style={styleButton}> Enregistrer </Button>
+                    <br />
+                    <Button onClick={() => this.handleClick("previous", this.state.pourcentage3)} variant="dark">Précédent</Button>
+                    <Button variant="primary" onClick={this.saveParties} style={styleButton}> Enregistrer </Button>
                 </div>
         }
         return (
@@ -239,7 +206,6 @@ const stepArray = [
     "Um5",
     "Vacations",
     "Charges",
-    "Résumé",
 ];
 
 export default Wizard;

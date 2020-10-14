@@ -1,5 +1,5 @@
 import React from 'react';
-import { faListAlt, faMoneyBillAlt, faTachometerAlt, faPlusSquare, faUserTie, faFileInvoiceDollar, faUserAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faListAlt, faTachometerAlt, faPlusSquare, faUserTie, faFileInvoiceDollar, faSignOutAlt, faThLarge } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
@@ -12,9 +12,16 @@ export const SidebarData = [
     },
 
     {
-        title: 'Budgets',
-        path: '/budgets',
-        icon: <FontAwesomeIcon icon={faMoneyBillAlt} />,
+        title: 'Nouveau PE',
+        path: '/nouveau-PE',
+        icon: <FontAwesomeIcon icon={faPlusSquare} />,
+        cName: 'nav-text'
+    },
+
+    {
+        title: 'Répartition PE',
+        path: '/wizard',
+        icon: <FontAwesomeIcon icon={faThLarge} />,
         cName: 'nav-text'
     },
 
@@ -40,25 +47,11 @@ export const SidebarData = [
     },
 
     {
-        title: 'Nouveau PE',
-        path: '/wizard',
-        icon: <FontAwesomeIcon icon={faPlusSquare} />,
-        cName: 'nav-text'
-    },
-
-    {
-        title: 'Compte',
-        path: '/compte',
-        icon: <FontAwesomeIcon icon={faUserAlt} />,
-        cName: 'nav-text'
-    },
-
-    {
-        title: 'Deconnexion',
+        title: 'Déconnexion',
         path: '/deconnexion',
         icon: <FontAwesomeIcon icon={faSignOutAlt} />,
         cName: 'nav-text'
     },
 
-    
+
 ];

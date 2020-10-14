@@ -28,11 +28,12 @@ public class Partie {
 	@NonNull
 	private String designation;
 	private int pourcentage;
-	@NonNull
-	private Double somme;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "programme")
 	@JsonIgnore
 	private Programme programme;
 
+	public Double getSomme() {
+		return this.pourcentage * this.programme.getBudget() / 100;
+	}
 }

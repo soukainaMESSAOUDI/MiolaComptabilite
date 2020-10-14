@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { Container, Card, ButtonGroup, Button } from 'react-bootstrap';
-import ReactToPrint, { PrintContextConsumer } from 'react-to-print';
-
+import { Container, Card, ButtonGroup, Button, Modal, Form, Col } from 'react-bootstrap';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 class ProgrammeActuelComponent extends Component {
 
@@ -16,7 +13,15 @@ class ProgrammeActuelComponent extends Component {
             programmeActuel: '',
             parties: [],
             selectedPartie: '',
+            updateModalShow: false,
+            index: '',
+            reference: '',
+            pourcentage: '',
         };
+
+        this.partieChange = this.partieChange.bind(this);
+        this.updatePartie = this.updatePartie.bind(this);
+
     }
 
     componentDidMount() {
@@ -39,16 +44,6 @@ class ProgrammeActuelComponent extends Component {
             })
     }
 
-    updatePartie(partieId) {
-        console.log(partieId);
-        axios.put("http://localhost:8080/parties/" + partieId)
-            .then(response => {
-                if (response.data != null) {
-
-                }
-            });
-    }
-
     getSelectedPartie(partieId) {
         axios.get("http://localhost:8080/partie-Id/" + partieId)
             .then(response => response.data)
@@ -58,7 +53,42 @@ class ProgrammeActuelComponent extends Component {
             })
     }
 
+    updatePartie(event) {
+        event.preventDefault();
+
+        const partie = { reference: this.state.reference, pourcentage: this.state.pourcentage };
+        const id = this.state.index;
+        console.log(id);
+        axios.put("http://localhost:8080/parties/" + id, partie)
+            .then(response => {
+                if (response.data != null) {
+                    this.setState({ updateModalShow: false });
+
+                }
+            });
+        window.location.reload(false);
+    }
+
+    deletePartie(partieId) {
+        console.log(partieId);
+        axios.delete("http://localhost:8080/parties/" + partieId)
+            .then(response => {
+                if (response.data != null) {
+                    alert("Successfully deleted");
+                    this.setState({
+                        parties: this.state.parties.filter(partie => partie.id !== partieId)
+                    });
+                }
+            });
+    }
+
+
+    partieChange(event) {
+        this.setState({ [event.target.name]: event.target.value });
+    }
+
     render() {
+        let updateModalClose = () => this.setState({ updateModalShow: false });
         const programme = this.state.programmeActuel;
         const tableRows = this.state.parties.map((partie) =>
             <tr key={partie.id}>
@@ -72,16 +102,65 @@ class ProgrammeActuelComponent extends Component {
                             onClick={this.getSelectedPartie.bind(this, partie.id)}>
                             <FontAwesomeIcon icon={faEye} />
                         </Button>
-                        <Link to={""} className="btn btn-success btn-sm btn-group-link"
-                            onClick={this.updatePartie.bind(this, partie.id)}>
+
+                        <Button className="btn btn-success btn-sm btn-group-link"
+                            onClick={() => {
+                                this.setState({
+                                    updateModalShow: true,
+                                    index: parseInt(partie.id),
+                                    reference: partie.reference,
+                                    pourcentage: partie.pourcentage,
+                                })
+                            }}>
                             <FontAwesomeIcon icon={faEdit} />
-                        </Link>
+                        </Button>
+
+                        <Button size="sm" variant="danger btn-group-link"
+                            onClick={this.deletePartie.bind(this, partie.id)}>
+                            <FontAwesomeIcon icon={faTrash} />
+                        </Button>
 
                     </ButtonGroup>
                 </td>
+
+                <Modal
+                    show={this.state.updateModalShow}
+                    onHide={updateModalClose}
+                    {...this.props}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            Modification de la partie
+                                </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form>
+                            <Form.Group as={Col} controlId="formGridReference">
+                                <Form.Label>Référence :</Form.Label>
+                                <Form.Control required name="reference" type="text" value={this.state.reference}
+                                    autoComplete="off" onChange={this.partieChange} placeholder="Saisir la référence" />
+                            </Form.Group >
+                            <Form.Group as={Col} controlId="formGridPourcentage">
+                                <Form.Label>Pourcentage :</Form.Label>
+                                <Form.Control required name="pourcentage" type="number" value={this.state.pourcentage}
+                                    autoComplete="off" onChange={this.partieChange} placeholder="Saisir le pourcentage" />
+                            </Form.Group>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="primary" onClick={this.updatePartie}>Confirmer</Button>
+
+                        <Button variant="secondary" onClick={updateModalClose}>Fermer</Button>
+                    </Modal.Footer>
+
+                </Modal >
+
+
             </tr >
         );
-
         return (
             <div>
                 <Container>
@@ -92,9 +171,9 @@ class ProgrammeActuelComponent extends Component {
                             Master Internet des Objets : Logiciel et Analytique</Card.Title>
                             <Card.Text>
                                 <br />
-                                <li>  Nombre des etudiants inscrits : {programme.nombreInscrit} </li>
+                                <li>  Nombre des  étudiants inscrits : {programme.nombreInscrit} </li>
                                 <br />
-                                <li>  Cout de la formation Miola : {programme.coutFormation} </li>
+                                <li>  Coût de la formation Miola : {programme.coutFormation} </li>
                                 <br />
                                 <li>   Budget total du programme : {programme.budget} </li>
                                 <br />

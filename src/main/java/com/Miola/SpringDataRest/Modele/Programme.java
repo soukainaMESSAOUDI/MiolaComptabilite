@@ -24,8 +24,7 @@ public class Programme {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@NonNull
-	private int annee;
-	@NonNull
+	private String annee;
 	private int nombreInscrit;
 	@NonNull
 	private Double coutFormation;
