@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Miola.SpringDataRest.Modele.Partie;
-import com.Miola.SpringDataRest.Repository.PartieRepo;
 import com.Miola.SpringDataRest.Service.PartieService;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -53,6 +53,11 @@ public class PartieController {
 	@DeleteMapping("/parties/{id}")
 	public void deletePartie(@PathVariable Long id) {
 		partieService.deletePartie(id);
+	}
+
+	@RequestMapping("/vacation")
+	public Partie getVacation() {
+		return PartieService.getVacation();
 	}
 
 }

@@ -54,4 +54,8 @@ public class PartieService {
 		partieRepo.deleteById(id);
 	}
 
+	public Partie getVacation() {
+		return getPartieById(partieRepo.count());
+	}
+
 }
