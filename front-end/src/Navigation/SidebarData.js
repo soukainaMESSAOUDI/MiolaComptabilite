@@ -1,5 +1,5 @@
 import React from 'react';
-import { faListAlt, faMoneyBillAlt, faTachometerAlt, faPlusSquare, faUserTie, faFileInvoiceDollar, faUserAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faListAlt, faTachometerAlt, faPlusSquare, faUserTie, faFileInvoiceDollar, faSignOutAlt, faThLarge } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Header from "../Account/Header";
 import { logout } from "../Actions/securityAction";
@@ -14,9 +14,16 @@ export const SidebarData = [
     },
 
     {
-        title: 'Budgets',
-        path: '/budgets',
-        icon: <FontAwesomeIcon icon={faMoneyBillAlt} />,
+        title: 'Nouveau PE',
+        path: '/nouveau-PE',
+        icon: <FontAwesomeIcon icon={faPlusSquare} />,
+        cName: 'nav-text'
+    },
+
+    {
+        title: 'Répartition PE',
+        path: '/wizard',
+        icon: <FontAwesomeIcon icon={faThLarge} />,
         cName: 'nav-text'
     },
 
@@ -29,7 +36,7 @@ export const SidebarData = [
 
     {
         title: 'Vacations',
-        path: '/vacations',
+        path: '/Professeurs',
         icon: <FontAwesomeIcon icon={faUserTie} />,
         cName: 'nav-text'
     },
@@ -55,5 +62,5 @@ export const SidebarData = [
         cName: 'nav-text'
     },
 
-    
+
 ];

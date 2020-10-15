@@ -1,0 +1,22 @@
+.stepper-container-horizontal {
+    border: 1px solid grey;
+    box-shadow: 0 0 13px #333;
+    border-radius: 15px;
+    margin: 10px auto;
+    padding: 30px;
+    width: 90%;
+  }
+
+  button {
+    background-color: grey;
+    margin: 0 2rem;
+    width: 100px;
+    padding: 4px;
+    border: none;
+    border-radius: 5%;
+  }
+
+  .card-resume {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }

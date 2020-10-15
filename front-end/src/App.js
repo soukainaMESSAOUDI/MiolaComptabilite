@@ -2,11 +2,9 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Mybar from './Navigation/Navbar';
-import BienvenueComponent from './Dashboard/BienvenueComponent';
+import Navbar from './Navigation/Navbar'
 import ListBudgetComponent from './Budgets/ListBudgetComponent';
 import ProgrammeActuel from './ProgrammeActuel/ProgrammeActuel';
-import Welcome from './Account/Welcome';
 import Login from './Account/Login';
 import Header from './Account/Header';
 import Register from './Account/Register';
@@ -18,9 +16,12 @@ import setJWTToken from "./SecurityUtils/SetJWTToken";
 import { SET_CURRENT_USER } from "./Actions/types";
 import { logout } from "./Actions/securityAction";
 import SecuredRoute from "./SecurityUtils/SecureRoute";
+import DashboardComponent from './Dashboard/DashboardComponent'
+import ChargeComponent from './Charges/ChargeComponent';
+import Professeur from './Vacations/Professeur';
+import ProfesseurList from './Vacations/ProfesseurList';
 
-import ProgrammeComponent from './Components/ProgrammeComponent';
-import Step1Component from './Components/Step1Component';
+
 
 const jwtToken = localStorage.jwtToken;
 
@@ -46,8 +47,6 @@ function App() {
             {
               //Public Routes
             }
-
-
             <Route exact path="/" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
@@ -57,14 +56,18 @@ function App() {
 
           
           <Switch>
-          <SecuredRoute path="/dashboard" exact component={BienvenueComponent} />
-          <SecuredRoute path="/budgets" component={ListBudgetComponent}/>
+          <SecuredRoute path="/" exact component={DashboardComponent} />
+          <SecuredRoute path="/dashboard" exact component={DashboardComponent} />
+          <SecuredRoute path="/nouveau-PE" component={ListBudgetComponent}/>
           <SecuredRoute path="/programme-actuel" exact component={ProgrammeActuel} />
           <SecuredRoute path="/wizard" exact component={Wizard} />
-          <SecuredRoute path="/programmes" exact component={ProgrammeComponent} />
-          <SecuredRoute path="/logout" exact component={Header} />
-          </Switch>
-          </div>
+          <SecuredRoute path="/logout" exact component={Header} />         
+          <SecuredRoute path="/charges" exact component={ChargeComponent} />
+          <SecuredRoute path="/vacations" exact component={Professeur}/>
+          <SecuredRoute path="/Professeurs" exact component={ProfesseurList}/>
+
+        </Switch>
+        </div>
       </Router>
       </Provider>
   );

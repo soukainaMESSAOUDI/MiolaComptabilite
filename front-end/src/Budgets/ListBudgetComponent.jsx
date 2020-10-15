@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Table } from 'react-bootstrap';
+import { Button, Table, Modal, Container} from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
 import axios from 'axios';
 import Navbar from '../Navigation/Navbar';
@@ -23,12 +23,17 @@ class ListBudgetComponent extends Component {
             coutFormation: '',
             budget: '',
             hidden: true,
+            //================
+            index: '',
+            selectedProgramm: this.getProgrammDetail,
+            detailModalShow: false,
         }
 
         this.changeAnneeHandler = this.changeAnneeHandler.bind(this);
         this.changeCoutHandler = this.changeCoutHandler.bind(this);
         this.changeNbrEtudiantsHandler = this.changeNbrEtudiantsHandler.bind(this);
         this.calculerHandler = this.calculerHandler.bind(this);
+        this.getProgrammDetail = this.getProgrammDetail.bind(this);
     }
 
     componentDidMount() {
@@ -36,7 +41,9 @@ class ListBudgetComponent extends Component {
             this.setState({ data: res.data, pageCount: Math.ceil(res.data.length / this.state.perPage) },
                 () => this.setElementsForCurrentPage());
         });
+
     }
+
 
     setElementsForCurrentPage() {
         let elements = this.state.data
@@ -89,7 +96,17 @@ class ListBudgetComponent extends Component {
         });
     }
 
+    getProgrammDetail() {
+        axios.get("http://localhost:8080/programme-Id/" + this.state.index)
+            .then(response => response.data)
+            .then((data) => {
+               return data;
+            })
+    }
+
     render() {
+        let detailModalClose = () => this.setState({ detailModalShow: false });
+
         let paginationElement;
         {
             paginationElement = (
@@ -115,12 +132,15 @@ class ListBudgetComponent extends Component {
         }
 
         return (
-            <div className="container">
-                <h3>BUDGETS ANNUELS</h3>
+            
+            <div>
+                <Navbar/>
+                <Container>
+                <h3>PROGRAMMES D'EMPLOI</h3>
                 <div className="container">
                     <div className="row">
                         <Button type="button" variant="primary" className="button-add" style={{ width: "150px" }}
-                            onClick={this.ajouterHandler}>Ajouter budget</Button>
+                            onClick={this.ajouterHandler}>Ajouter PE</Button>
                     </div>
                     <br />
                 </div>
@@ -136,23 +156,56 @@ class ListBudgetComponent extends Component {
                         </thead>
                         <tbody>
                             <tr id="form" hidden={this.state.hidden} >
-                                <td><input type="text" placeholder="yyyy" name="annee" className="form-control"
+                                <td><input type="text" placeholder="yyyy-yyyy" name="annee" className="form-control"
                                     value={this.state.annee} onChange={this.changeAnneeHandler} /></td>
                                 <td><input type="text" placeholder="000" name="nombreInscrit" className="form-control"
                                     value={this.state.nombreInscrit} onChange={this.changeNbrEtudiantsHandler} /></td>
                                 <td><input type="text" placeholder="0.00" name="coutFormation" className="form-control"
                                     value={this.state.coutFormation} onChange={this.changeCoutHandler} /></td>
-                                <td><Button variant="dark" className="margin-left-right" onClick={this.calculerHandler} >Calculer</Button>
-                                    <Button variant="secondary" className="margin-left-right" onClick={this.cancel.bind(this)}>Annuler</Button></td>
+                                <td><Button variant="success" className="margin-left-right" onClick={this.calculerHandler} >Calculer</Button>
+                                    <Button variant="danger" className="margin-left-right" onClick={this.cancel.bind(this)}>Annuler</Button></td>
                             </tr>
                             {
                                 this.state.elements.map(
                                     programme =>
-                                        <tr key={programme.id}>
+                                        <tr key={programme.id}
+                                            onClick={() => {
+                                                this.setState({
+                                                    detailModalShow: true,
+                                                    index: parseInt(programme.id),
+                                                    selectedProgramm: this.getProgrammDetail,
+                                                })
+
+                                            }}>
                                             <td>{programme.annee}</td>
                                             <td>{programme.nombreInscrit}</td>
                                             <td>{programme.coutFormation}</td>
                                             <td>{programme.budget}</td>
+                                            <div onClick={e => e.stopPropagation()}>
+
+                                                < Modal
+                                                    show={this.state.detailModalShow}
+                                                    onHide={detailModalClose}
+
+                                                    {...this.props}
+                                                    size="lg"
+                                                    aria-labelledby="contained-modal-title-vcenter"
+                                                    centered
+                                                >
+                                                    <Modal.Header closeButton>
+                                                        <Modal.Title id="contained-modal-title-vcenter">
+                                                            Détail du programme
+                                    </Modal.Title>
+                                                    </Modal.Header>
+                                                    <Modal.Body>
+                                                        Bonjour
+
+                                                    </Modal.Body>
+                                                    <Modal.Footer>
+                                                        <Button variant="secondary" onClick={detailModalClose}>Fermer</Button>
+                                                    </Modal.Footer>
+                                                </Modal >
+                                            </div>
                                         </tr>
                                 )
                             }
@@ -160,7 +213,8 @@ class ListBudgetComponent extends Component {
                     </Table>
                     {paginationElement}
                 </div>
-            </div>
+                </Container>
+            </div >
         );
     }
 }
