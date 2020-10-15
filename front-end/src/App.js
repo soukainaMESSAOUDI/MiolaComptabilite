@@ -1,6 +1,6 @@
 import React from 'react';
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Navbar from './Navigation/Navbar'
 import ListBudgetComponent from './Budgets/ListBudgetComponent';
@@ -10,6 +10,7 @@ import DashboardComponent from './Dashboard/DashboardComponent'
 import ProgrammeComponent from './Components/ProgrammeComponent';
 import Step1Component from './Components/Step1Component';
 import ChargeComponent from './Charges/ChargeComponent';
+import UpdateChargeComponent from './Charges/UpdateChargeComponent';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/wizard" exact component={Wizard} />
 
           <Route path="/charges" exact component={ChargeComponent} />
+          <Route path="/update-charges/:id" exact component={UpdateChargeComponent} />
           <Route path="/programmes" exact component={ProgrammeComponent} />
           <Route path="/add1" exact component={Step1Component} />
         </Switch>

@@ -29,3 +29,19 @@ h3 {
   margin-right: 10px;
   width: 40px;
 }
+.margin-top-bottom{
+  margin-top: 10px;
+  margin-bottom:2px;
+}
+.margin-left-right{
+  margin-left: 65px;
+  margin-right: 65px;
+}
+.margin-left-right-bis{
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.centre{
+  margin-left: auto;
+  margin-right: auto;
+}
