@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import { Jumbotron } from 'react-bootstrap';
-
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import Navbar from '../Navigation/Navbar';
 
 class BienvenueComponent extends Component {
+    componentDidMount() {
+        if (this.props.security.validToken) {
+          this.props.history.push("/dashboard");
+        }
+    }
     render() {
         return (
             <Jumbotron className="text-black">
@@ -19,5 +26,12 @@ class BienvenueComponent extends Component {
         );
     }
 }
-
-export default BienvenueComponent;
+BienvenueComponent.propTypes = {
+    security: PropTypes.object.isRequired
+  };
+  
+  const mapStateToProps = state => ({
+    security: state.security
+  });
+  
+  export default connect(mapStateToProps)(BienvenueComponent);

@@ -2,7 +2,13 @@ import React, { Component } from 'react';
 import { Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
+import { logout } from "../Actions/securityAction";
+
 class NavigationBarComponent extends Component {
+     logout() {
+    this.props.logout();
+    window.location.href = "/";
+  }
     render() {
         return (
             <Navbar bg="dark" variant="dark">
@@ -25,10 +31,19 @@ class NavigationBarComponent extends Component {
                     Delete
                 </Link>
                 
+                
 
             </Navbar>
         );
     }
 }
 
-export default NavigationBarComponent;
+// export default NavigationBarComponent;
+const mapStateToProps = state => ({
+ 
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(Dashboard);

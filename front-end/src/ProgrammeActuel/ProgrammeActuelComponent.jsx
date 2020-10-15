@@ -59,6 +59,7 @@ class ProgrammeActuelComponent extends Component {
     }
 
     render() {
+
         const programme = this.state.programmeActuel;
         const tableRows = this.state.parties.map((partie) =>
             <tr key={partie.id}>

@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
+    "jwt-decode": "^3.0.0",
     "markdown": "^0.5.0",
     "markdown-to-jsx": "^7.0.0",
     "react": "^16.13.1",
@@ -21,9 +22,12 @@
     "react-markdown": "^4.3.1",
     "react-paginate": "^6.5.0",
     "react-pro-sidebar": "^0.4.4",
+    "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-to-print": "^2.10.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "rsuite": "^4.8.2"
   },
   "scripts": {
