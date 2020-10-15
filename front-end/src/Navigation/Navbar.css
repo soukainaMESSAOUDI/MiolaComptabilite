@@ -2,8 +2,10 @@
     background-color: black;
     height: 80px;
     display: flex;
+    top: 0;
     /* justify-content: start; */
     align-items: center;
+    /* position: sticky; */
   }
   
   .menu-bars {
@@ -84,4 +86,5 @@
   .myMenu {
     z-index: 1000;
     position:relative;
+    width: 100%;
   }

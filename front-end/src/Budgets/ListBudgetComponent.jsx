@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
 import axios from 'axios';
+import Navbar from '../Navigation/Navbar';
 
 class ListBudgetComponent extends Component {
 
