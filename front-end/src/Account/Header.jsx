@@ -16,13 +16,18 @@ class Header extends Component {
     this.props.logout();
     window.location.href = "/";
   }
+  componentDidMount() {
+    if (this.props.security.validToken) {
+      this.logout(this);
+    }
+  }
   
   render() {
-    const { validToken, user } = this.props.security;
+     const { validToken, user } = this.props.security;
 
-    const userIsAuthenticated = (
-      <div className="myMenu">
-         <IconContext.Provider value={{ color: '#fff' }}>
+  const userIsAuthenticated = (
+      <div className="o">
+         <IconContext.Provider value={{ color: '#FFFFFF' }}>
          <div className="navbar">
                     <Link to={"#"} className="menu-bars">
                         <Image className="logo" src="/Images/logo.png" />
@@ -70,24 +75,23 @@ class Header extends Component {
     return (
      
         <div className="container">
-        <IconContext.Provider value={{ color: '#fff' }}>
+       {/* <IconContext.Provider value={{ color: '#fff' }}>
           <Link className="navbar-brand" to="/">
           </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#mobile-nav"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-          {headerLinks}
-          </IconContext.Provider>
+       <button
+           className="navbar-toggler"
+           type="button"
+           data-toggle="collapse"
+           data-target="#mobile-nav"
+         >
+         <span className="navbar-toggler-icon" />
+      </button>
+        {headerLinks}
+     </IconContext.Provider> */}
         </div>
     );
   }
 }
-
 Header.propTypes = {
   logout: PropTypes.func.isRequired,
   security: PropTypes.object.isRequired

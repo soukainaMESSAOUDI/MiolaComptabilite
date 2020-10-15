@@ -3,6 +3,7 @@ import { createNewUser } from "../Actions/securityAction";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classnames from "classnames";
+import Mybar from "../Navigation/Mybar";
 
 class Register extends Component {
   constructor() {
@@ -51,9 +52,7 @@ class Register extends Component {
     const { errors } = this.state;
     return (
       <div className="register">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
+        <Mybar/>
               <h1 className="display-4 text-center">Sign Up</h1>
               <p className="lead text-center">Create your Account</p>
               <form onSubmit={this.onSubmit}>
@@ -122,9 +121,6 @@ class Register extends Component {
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
             </div>
-          </div>
-        </div>
-      </div>
     );
   }
 }
