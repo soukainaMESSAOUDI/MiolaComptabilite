@@ -21,43 +21,43 @@ class Header extends Component {
       this.logout(this);
     }
   }
-  
+
   render() {
-     const { validToken, user } = this.props.security;
+    const { validToken, user } = this.props.security;
 
-  const userIsAuthenticated = (
+    const userIsAuthenticated = (
       <div className="o">
-         <IconContext.Provider value={{ color: '#FFFFFF' }}>
-         <div className="navbar">
-                    <Link to={"#"} className="menu-bars">
-                        <Image className="logo" src="/Images/logo.png" />
-                    </Link>
-        <ul className="navbar-nav mr-auto">
-          <li className="nav-item">
-            <Link className="nav-link" to="/dashboard">
-              Dashboard
+        <IconContext.Provider value={{ color: '#FFFFFF' }}>
+          <div className="navbar">
+            <Link to={"#"} className="menu-bars">
+              <Image className="logo" src="/Images/logo.png" />
             </Link>
-          </li>
-        </ul>
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item">
+                <Link className="nav-link" to="/dashboard">
+                  Dashboard
+            </Link>
+              </li>
+            </ul>
 
-        <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
-            <Link className="nav-link" to="/dashboard">
-              <i className="fas fa-user-circle mr-1" />
-              {user.fullName}
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <Link className="nav-link" to="/dashboard">
+                  <i className="fas fa-user-circle mr-1" />
+                  {user.fullName}
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link"
+                  to="/logout"
+                  onClick={this.logout.bind(this)}
+                >
+                  Logout
             </Link>
-          </li>
-          <li className="nav-item">
-            <Link
-              className="nav-link"
-              to="/logout"
-              onClick={this.logout.bind(this)}
-            >
-              Logout
-            </Link>
-          </li>
-        </ul>
-        </div>
+              </li>
+            </ul>
+          </div>
         </IconContext.Provider>
       </div>
 
@@ -67,15 +67,15 @@ class Header extends Component {
 
     if (validToken && user) {
       headerLinks = userIsAuthenticated;
-     }
+    }
     //  else {
     //   headerLinks = userIsNotAuthenticated;
     // }
 
     return (
-     
-        <div className="container">
-       {/* <IconContext.Provider value={{ color: '#fff' }}>
+
+      <div className="container">
+        {/* <IconContext.Provider value={{ color: '#fff' }}>
           <Link className="navbar-brand" to="/">
           </Link>
        <button
@@ -88,7 +88,7 @@ class Header extends Component {
       </button>
         {headerLinks}
      </IconContext.Provider> */}
-        </div>
+      </div>
     );
   }
 }

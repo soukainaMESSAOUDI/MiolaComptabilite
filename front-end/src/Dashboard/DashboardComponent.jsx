@@ -11,16 +11,19 @@ class DashboardComponent extends Component {
         super();
         this.state = {
             programmeActuel: '',
+            sommeGlobale: '',
+            partie: '',
             chartData: {},
+            chartData2: {},
         }
     }
 
-    componentDidMount() {
-        this.getProgrammeActuel();
-    }
-
     componentWillMount() {
+        this.getPartieCharge();
+
+        this.getProgrammeActuel();
         this.getChartData();
+        this.getChartData2();
     }
 
     getProgrammeActuel() {
@@ -58,14 +61,51 @@ class DashboardComponent extends Component {
                             '#a8d3fa',
                             '#1da0b5',
                             '#6b757f',
-                            '#b1aeac',
-                            '#2da63f',
-                            '#de3542',
-                            '#0069d9',
-                            '#ffff99',
-                            '#8cd9b3',
-                            '#ff9999',
-                            '#99ddff',
+                        ]
+                    }
+                ]
+            }
+        });
+    }
+
+    getPartieCharge() {
+        axios.get("http://localhost:8080/charge/partie")
+            .then(response => {
+                this.setState({ partie: response.data, sommeGlobale: response.data.somme });
+                console.log("voila la somme" + this.state.partie.somme + " et " + this.state.sommeGlobale);
+            });
+    }
+
+    getChartData2() {
+        let listS = [];
+        let listD = [];
+
+        axios.get("http://localhost:8080/charges")
+            .then(response => {
+
+
+                for (const dataObj of response.data) {
+                    listD.push(dataObj.designation);
+
+                    listS.push(dataObj.creditDisponible);
+
+                }
+                console.log("this is d2 " + listD);
+                console.log("this is s2 somme" + listS);
+            })
+
+        this.setState({
+            chartData2: {
+                labels: listD,
+                datasets: [
+                    {
+                        label: 'Credits',
+                        data: listS,
+                        backgroundColor: [
+                            '#f3bbbf',
+                            '#a8d3fa',
+                            '#1da0b5',
+                            '#6b757f',
                         ]
                     }
                 ]
@@ -76,7 +116,7 @@ class DashboardComponent extends Component {
     render() {
         return (
             <div >
-                <Navbar/>
+                <Navbar />
                 <h3>Tableau de bord</h3>
                 <div className="container">
                     <CardDeck>
@@ -111,51 +151,7 @@ class DashboardComponent extends Component {
                         <ChartPartiesComponent chartData={this.state.chartData} legendPosition="bottom" />
                     </Row>
                     <br />
-                    {/*
-                    <Table title="Vacations des professeurs" className="table-dashboard" striped bordered hover >
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Professeur</th>
-                                <th>Grade</th>
-                                <th>Nombre de modules</th>
-                                <th>Tarif</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Ahmed</td>
-                                <td>PA</td>
-                                <td>3</td>
-                                <td>4000</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Mohamed</td>
-                                <td>PH</td>
-                                <td>6</td>
-                                <td>5000</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Sara</td>
-                                <td>PES</td>
-                                <td>6</td>
-                                <td>6000</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Zakha</td>
-                                <td>PES</td>
-                                <td>6</td>
-                                <td>6000</td>
-                            </tr>
-                        </tbody>
-                    </Table>
-                  */}
-
-                    <ChartChargesComponent chartData={this.state.chartData} legendPosition="bottom" />
+                    <ChartChargesComponent chartData={this.state.chartData2} legendPosition="bottom" />
                 </div>
 
             </div>

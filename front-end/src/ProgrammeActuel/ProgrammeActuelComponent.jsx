@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Card, ButtonGroup, Button, Modal, Form, Col } from 'react-bootstrap';
+import { Container, Card, ButtonGroup, Button, Modal, Form, Col, Image } from 'react-bootstrap';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -12,8 +12,8 @@ class ProgrammeActuelComponent extends Component {
         this.state = {
             programmeActuel: '',
             parties: [],
-            selectedPartie: '',
-            updateModalShow: false,
+            updateModalShow1: false,
+            updateModalShow2: false,
             index: '',
             reference: '',
             pourcentage: '',
@@ -44,15 +44,6 @@ class ProgrammeActuelComponent extends Component {
             })
     }
 
-    getSelectedPartie(partieId) {
-        axios.get("http://localhost:8080/partie-Id/" + partieId)
-            .then(response => response.data)
-            .then((data) => {
-                this.setState({ selectedPartie: data });
-                console.log(this.state.selectedPartie);
-            })
-    }
-
     updatePartie(event) {
         event.preventDefault();
 
@@ -62,8 +53,7 @@ class ProgrammeActuelComponent extends Component {
         axios.put("http://localhost:8080/parties/" + id, partie)
             .then(response => {
                 if (response.data != null) {
-                    this.setState({ updateModalShow: false });
-
+                    this.setState({ updateModalShow1: false });
                 }
             });
         window.location.reload(false);
@@ -82,13 +72,14 @@ class ProgrammeActuelComponent extends Component {
             });
     }
 
-
     partieChange(event) {
         this.setState({ [event.target.name]: event.target.value });
     }
 
     render() {
-        let updateModalClose = () => this.setState({ updateModalShow: false });
+        let updateModalClose1 = () => this.setState({ updateModalShow1: false });
+        let updateModalClose2 = () => this.setState({ updateModalShow2: false });
+
         const programme = this.state.programmeActuel;
         const tableRows = this.state.parties.map((partie) =>
             <tr key={partie.id}>
@@ -99,14 +90,19 @@ class ProgrammeActuelComponent extends Component {
                 <td>
                     <ButtonGroup>
                         <Button size="sm" variant="primary btn-group-link"
-                            onClick={this.getSelectedPartie.bind(this, partie.id)}>
+                            onClick={() => {
+                                this.setState({
+                                    updateModalShow2: true,
+                                    selectedPartie: partie,
+                                })
+                            }}>
                             <FontAwesomeIcon icon={faEye} />
                         </Button>
 
                         <Button className="btn btn-success btn-sm btn-group-link"
                             onClick={() => {
                                 this.setState({
-                                    updateModalShow: true,
+                                    updateModalShow1: true,
                                     index: parseInt(partie.id),
                                     reference: partie.reference,
                                     pourcentage: partie.pourcentage,
@@ -124,13 +120,12 @@ class ProgrammeActuelComponent extends Component {
                 </td>
 
                 <Modal
-                    show={this.state.updateModalShow}
-                    onHide={updateModalClose}
+                    show={this.state.updateModalShow1}
+                    onHide={updateModalClose1}
                     {...this.props}
                     size="lg"
                     aria-labelledby="contained-modal-title-vcenter"
-                    centered
-                >
+                    centered>
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
                             Modification de la partie
@@ -152,24 +147,56 @@ class ProgrammeActuelComponent extends Component {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="primary" onClick={this.updatePartie}>Confirmer</Button>
-
-                        <Button variant="secondary" onClick={updateModalClose}>Fermer</Button>
+                        <Button variant="secondary" onClick={updateModalClose1}>Fermer</Button>
                     </Modal.Footer>
+                </Modal>
 
+                <Modal
+                    show={this.state.updateModalShow2}
+                    onHide={updateModalClose2}
+                    {...this.props}
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            Détails
+                                </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <li>  Référence : {partie.reference} </li>
+                        <br />
+                        <li>  Désignation : {partie.designation} </li>
+                        <br />
+                        <li>  Pourcentage : {partie.pourcentage} </li>
+                        <br />
+                        <li>   Somme : {partie.somme} </li>
+                        <br />
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={updateModalClose2}>Fermer</Button>
+                    </Modal.Footer>
                 </Modal >
-
-
             </tr >
         );
         return (
-            <div>
+            <div className="container">
                 <Container>
-                    <h3>PROGRAMME D'EMPLOI  {programme.annee} </h3>
+                    <br />
+                    {/*   <h3>PROGRAMME D'EMPLOI  {programme.annee} </h3> */}
                     <Card >
                         <Card.Body>
+                            <Image className="ensias" src="/Images/ensias.png" />
+                            <br />
+                            <br />
+                            <h6 style={{ textAlign: "center" }}>  Université Mohammed V de Rabat </h6>
+                            <h5 style={{ textAlign: "center" }}>Ecole Nationale Supérieure d’Informatique et d’Analyse des Systèmes </h5>
+                            <br />
                             <Card.Title>PE FORMATION DES FONCTIONNAIRES ET DES SALARIES EN
                             Master Internet des Objets : Logiciel et Analytique</Card.Title>
                             <Card.Text>
+                            <br />
+                                <li>  Année universitaire : {programme.annee} </li>
                                 <br />
                                 <li>  Nombre des  étudiants inscrits : {programme.nombreInscrit} </li>
                                 <br />

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Line } from 'react-chartjs-2';
+import { Bar, Bubble, Line } from 'react-chartjs-2';
 import axios from 'axios';
 
 class ChartChargesComponent extends Component {
@@ -33,14 +33,14 @@ class ChartChargesComponent extends Component {
         return (
             <div>
                 <Line
-                   width="500px"
-                   height="500px"
+                    width="500px"
+                    height="500px"
                     data={this.state.chartData}
                     options={{
                         maintainAspectRatio: false,
                         title: {
                             display: this.props.displayTitle,
-                            text: "Évolution des charges",
+                            text: "Évolution des charges du PE " + this.state.programmeActuel.annee,
                             fontSize: 20
                         },
                         legend: {

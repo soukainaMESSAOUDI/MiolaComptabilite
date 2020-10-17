@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { createNewUser } from "../Actions/securityAction";
+import { Button, Container, Form, Row, Image, Col } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classnames from "classnames";
 import Mybar from "../Navigation/Mybar";
+import './Register.css'
 
 class Register extends Component {
   constructor() {
@@ -51,76 +53,76 @@ class Register extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div className="register">
-        <Mybar/>
-              <h1 className="display-4 text-center">Sign Up</h1>
-              <p className="lead text-center">Create your Account</p>
-              <form onSubmit={this.onSubmit}>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.fullName
-                    })}
-                    placeholder="Full Name"
-                    name="fullName"
-                    value={this.state.fullName}
-                    onChange={this.onChange}
-                  />
-                  {errors.fullName && (
-                    <div className="invalid-feedback">{errors.fullName}</div>
-                  )}
-                </div>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.username
-                    })}
-                    placeholder="Email Address (Username)"
-                    name="username"
-                    value={this.state.username}
-                    onChange={this.onChange}
-                  />
-                  {errors.username && (
-                    <div className="invalid-feedback">{errors.username}</div>
-                  )}
-                </div>
-                <div className="form-group">
-                  <input
-                    type="password"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.password
-                    })}
-                    placeholder="Password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.onChange}
-                  />
-                  {errors.password && (
-                    <div className="invalid-feedback">{errors.password}</div>
-                  )}
-                </div>
-                <div className="form-group">
-                  <input
-                    type="password"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.confirmPassword
-                    })}
-                    placeholder="Confirm Password"
-                    name="confirmPassword"
-                    value={this.state.confirmPassword}
-                    onChange={this.onChange}
-                  />
-                  {errors.confirmPassword && (
-                    <div className="invalid-feedback">
-                      {errors.confirmPassword}
-                    </div>
-                  )}
-                </div>
-                <input type="submit" className="btn btn-info btn-block mt-4" />
-              </form>
-            </div>
+      <>
+        <Mybar />
+        <div class="form-register">
+          <h4 style={{ marginBottom: "30px", fontFamily: "Roboto" }}>Inscrivez-vous</h4>
+
+          <Form onSubmit={this.onSubmit}>
+
+            <input
+              type="text"
+              className={classnames("form-control form-control-lg", {
+                "is-invalid": errors.fullName
+              })}
+              placeholder="Nom complet"
+              name="fullName"
+              value={this.state.fullName}
+              onChange={this.onChange}
+            />
+            {errors.fullName && (
+              <div className="invalid-feedback">{errors.fullName}</div>
+            )}
+
+            <input
+              type="text"
+              className={classnames("form-control form-control-lg", {
+                "is-invalid": errors.username
+              })}
+              placeholder="Email"
+              name="username"
+              value={this.state.username}
+              onChange={this.onChange}
+            />
+            {errors.username && (
+              <div className="invalid-feedback">{errors.username}</div>
+            )}
+
+            <input
+              type="password"
+              className={classnames("form-control form-control-lg", {
+                "is-invalid": errors.password
+              })}
+              placeholder="Mot de passe"
+              name="password"
+              value={this.state.password}
+              onChange={this.onChange}
+            />
+            {errors.password && (
+              <div className="invalid-feedback">{errors.password}</div>
+            )}
+
+
+            <input
+              type="password"
+              className={classnames("form-control form-control-lg", {
+                "is-invalid": errors.confirmPassword
+              })}
+              placeholder="Confirmer mot de passe"
+              name="confirmPassword"
+              value={this.state.confirmPassword}
+              onChange={this.onChange}
+            />
+            {errors.confirmPassword && (
+              <div className="invalid-feedback">
+                {errors.confirmPassword}
+              </div>
+            )}
+            <input type="submit" className="btn btn-dark btn-lg" value="Inscription" />
+            <p class="message">Déjà inscrit ? <a href="/login"> Connectez-vous</a></p>
+          </Form>
+        </div>
+      </>
     );
   }
 }

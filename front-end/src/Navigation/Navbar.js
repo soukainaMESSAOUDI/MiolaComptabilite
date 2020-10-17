@@ -18,7 +18,7 @@ function Navbar(props){
                     <Link to={"#"} className="menu-bars">
                         <FontAwesomeIcon icon={faBars} onClick={showSidebar} />
                     </Link>
-                    <Link to={"#"} className="menu-bars">
+                    <Link to={"/"} className="menu-bars">
                         <Image className="logo" src="/Images/logo.png" />
                     </Link>
                 </div>

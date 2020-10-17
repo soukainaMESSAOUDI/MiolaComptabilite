@@ -1,5 +1,6 @@
 package com.Miola.SpringDataRest.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +55,27 @@ public class PartieService {
 		partieRepo.deleteById(id);
 	}
 
-	public Partie getVacation() {
-		return getPartieById(partieRepo.count());
+	public Partie getPartieCharge() {
+		Partie selected = new Partie();
+		for (Partie partie : getAllParties()) {
+			if (partie.getDesignation().equals("Charges")) {
+				selected = partie;
+			}
+		}
+		return selected;
 	}
 
+	public List<Partie> getAll() {
+		return partieRepo.findAll();
+	}
+	
+	public List<Partie> getALLCharges(){
+		List<Partie> parties= this.getAll();
+		List charges=new ArrayList();
+		for(Partie p:parties) {
+			if(p.getDesignation().equals("Charges"))
+				charges.add(p);
+		}
+		return charges;
+	}
 }

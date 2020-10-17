@@ -55,9 +55,16 @@ public class PartieController {
 		partieService.deletePartie(id);
 	}
 
-//	@RequestMapping("/vacation")
-//	public Partie getVacation() {
-//		return PartieService.getVacation();
-//	}
+	@GetMapping("/charge/partie")
+	public Partie getPartieCharge() {
+		return partieService.getPartieCharge();
+	}
+
+	@GetMapping("/all-charges")
+	public List<Partie> getAllCharges() {
+		return partieService.getALLCharges();
+	}
+
+
 
 }

@@ -42,21 +42,18 @@ class Wizard extends Component {
         this.getProgrammeActuel();
     }
 
-    saveParties(event) {
-        event.preventDefault();
-
+    saveParties() {
+        //  event.preventDefault();
         if (this.state.pourcentage4 > this.state.pourcentageGlobal) {
             alert("Veuillez saisir un pourcentage inférieur ou égal à " + this.state.pourcentageGlobal);
-        } else {
-            this.state.pourcentageGlobal -= this.state.pourcentage4;
-            console.log("le pourcentage restant est : " + this.state.pourcentageGlobal);
+        } else if (this.state.pourcentage4 = this.state.pourcentageGlobal) {
             axios.post("http://localhost:8080/save-all-parties", this.state.list)
                 .then(response => {
                     if (response.data != null) {
                         console.log("List saved successfully");
-                        this.props.history.push("/programme-actuel");
                     }
                 })
+            this.props.history.push("/programme-actuel");
         }
     }
 
@@ -113,12 +110,12 @@ class Wizard extends Component {
                 <div>
                     <Form id="addFormId1">
                         <Form.Group as={Col} controlId="formGridReference">
-                            <Form.Label>Référence :</Form.Label>
+                            <Form.Label style={{ float: "left" }}>Référence :</Form.Label>
                             <Form.Control required name="reference1" type="text" value={this.state.reference1}
                                 autoComplete="off" onChange={this.partieChange} placeholder="Saisir la référence" />
                         </Form.Group >
                         <Form.Group as={Col} controlId="formGridPourcentage">
-                            <Form.Label>Pourcentage :</Form.Label>
+                            <Form.Label style={{ float: "left" }}>Pourcentage :</Form.Label>
                             <Form.Control required name="pourcentage1" type="number" value={this.state.pourcentage1}
                                 autoComplete="off" onChange={this.partieChange} placeholder="Saisir le pourcentage" />
                         </Form.Group>
@@ -134,12 +131,12 @@ class Wizard extends Component {
                 <div>
                     <Form id="addFormId2">
                         <Form.Group as={Col} controlId="formGridReference">
-                            <Form.Label>Référence :</Form.Label>
+                            <Form.Label style={{ float: "left" }}>Référence :</Form.Label>
                             <Form.Control required name="reference2" type="text" value={this.state.reference2}
                                 autoComplete="off" onChange={this.partieChange} placeholder="Saisir la référence" />
                         </Form.Group >
                         <Form.Group as={Col} controlId="formGridPourcentage">
-                            <Form.Label>Pourcentage :</Form.Label>
+                            <Form.Label style={{ float: "left" }}>Pourcentage :</Form.Label>
                             <Form.Control required name="pourcentage2" type="number" value={this.state.pourcentage2}
                                 autoComplete="off" onChange={this.partieChange} placeholder="Saisir le pourcentage" />
                         </Form.Group>
@@ -154,12 +151,12 @@ class Wizard extends Component {
                 <div>
                     <Form id="addFormId3">
                         <Form.Group as={Col} controlId="formGridReference">
-                            <Form.Label>Référence :</Form.Label>
+                            <Form.Label style={{ float: "left" }}>Référence :</Form.Label>
                             <Form.Control required name="reference3" type="text" value={this.state.reference3}
                                 autoComplete="off" onChange={this.partieChange} placeholder="Saisir la référence" />
                         </Form.Group >
                         <Form.Group as={Col} controlId="formGridPourcentage">
-                            <Form.Label>Pourcentage :</Form.Label>
+                            <Form.Label style={{ float: "left" }}>Pourcentage :</Form.Label>
                             <Form.Control required name="pourcentage3" type="number" value={this.state.pourcentage3}
                                 autoComplete="off" onChange={this.partieChange} placeholder="Saisir le pourcentage" />
                         </Form.Group>
@@ -174,12 +171,12 @@ class Wizard extends Component {
                 <div>
                     <Form id="addFormId4">
                         <Form.Group as={Col} controlId="formGridReference">
-                            <Form.Label>Référence :</Form.Label>
+                            <Form.Label style={{ float: "left" }}>Référence :</Form.Label>
                             <Form.Control required name="reference4" type="text" value={this.state.reference4}
                                 autoComplete="off" onChange={this.partieChange} placeholder="Saisir la référence" />
                         </Form.Group >
                         <Form.Group as={Col} controlId="formGridPourcentage">
-                            <Form.Label>Pourcentage :</Form.Label>
+                            <Form.Label style={{ float: "left" }}>Pourcentage :</Form.Label>
                             <Form.Control required name="pourcentage4" type="number" value={this.state.pourcentage4}
                                 autoComplete="off" onChange={this.partieChange} placeholder="Saisir le pourcentage" />
                         </Form.Group>
@@ -191,7 +188,7 @@ class Wizard extends Component {
         }
         return (
             <>
-            <Navbar/>
+                <Navbar />
                 <h3>CRÉATION D'UN NOUVEAU PROGRAMME D'EMPLOI</h3>
                 <div className="stepper-container-horizontal">
                     <Stepper steps={stepArray} currentStepNumber={currentStep - 1} />

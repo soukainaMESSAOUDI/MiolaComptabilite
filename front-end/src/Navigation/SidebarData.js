@@ -43,20 +43,13 @@ export const SidebarData = [
 
     {
         title: 'Charges',
-        path: '/charges',
+        path: '/list-charges',
         icon: <FontAwesomeIcon icon={faFileInvoiceDollar} />,
         cName: 'nav-text'
     },
 
     {
-        title: 'Nouveau PE',
-        path: '/wizard',
-        icon: <FontAwesomeIcon icon={faPlusSquare} />,
-        cName: 'nav-text'
-    },
-
-    {
-        title: 'Deconnexion',
+        title: 'Déconnexion',
         path:'/logout',
         icon: <FontAwesomeIcon icon={faSignOutAlt} />,
         cName: 'nav-text'

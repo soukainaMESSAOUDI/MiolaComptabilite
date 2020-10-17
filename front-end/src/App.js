@@ -2,8 +2,7 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Navbar from './Navigation/Navbar'
-import ListBudgetComponent from './Budgets/ListBudgetComponent';
+import ListBudgetComponent from './Programmes/ListBudgetComponent';
 import ProgrammeActuel from './ProgrammeActuel/ProgrammeActuel';
 import Login from './Account/Login';
 import Header from './Account/Header';
@@ -20,6 +19,7 @@ import DashboardComponent from './Dashboard/DashboardComponent'
 import ChargeComponent from './Charges/ChargeComponent';
 import Professeur from './Vacations/Professeur';
 import ProfesseurList from './Vacations/ProfesseurList';
+import ListCharge from './Charges/ListCharge';
 
 
 
@@ -43,33 +43,36 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-      <div className="App">
-            {
-              //Public Routes
-            }
-            <Route exact path="/" component={Login} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-            {
-              //private routes
-            }
+        <div className="App">
+          {
+            //Public Routes
+          }
+          <Route exact path="/" component={Login} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
+          {
+            //private routes
+          }
 
-          
+
           <Switch>
-          <SecuredRoute path="/" exact component={DashboardComponent} />
-          <SecuredRoute path="/dashboard" exact component={DashboardComponent} />
-          <SecuredRoute path="/nouveau-PE" component={ListBudgetComponent}/>
-          <SecuredRoute path="/programme-actuel" exact component={ProgrammeActuel} />
-          <SecuredRoute path="/wizard" exact component={Wizard} />
-          <SecuredRoute path="/logout" exact component={Header} />         
-          <SecuredRoute path="/charges" exact component={ChargeComponent} />
-          <SecuredRoute path="/vacations" exact component={Professeur}/>
-          <SecuredRoute path="/Professeurs" exact component={ProfesseurList}/>
+            <SecuredRoute path="/" exact component={DashboardComponent} />
+            <SecuredRoute path="/dashboard" exact component={DashboardComponent} />
+            <SecuredRoute path="/nouveau-PE" component={ListBudgetComponent} />
+            <SecuredRoute path="/wizard" exact component={Wizard} />
+            <SecuredRoute path="/programme-actuel" exact component={ProgrammeActuel} />
+            <SecuredRoute path="/logout" exact component={Header} />
+            <SecuredRoute path="/charges" exact component={ChargeComponent} />
+            <SecuredRoute path="/vacations" exact component={Professeur} />
+            <SecuredRoute path="/Professeurs" exact component={ProfesseurList} />
+            <SecuredRoute path="/list-charges" exact component={ListCharge} />
 
-        </Switch>
+
+
+          </Switch>
         </div>
       </Router>
-      </Provider>
+    </Provider>
   );
 }
 
