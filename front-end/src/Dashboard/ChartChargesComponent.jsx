@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Bar, Bubble, Line } from 'react-chartjs-2';
+import { Bar, Bubble, Doughnut, Line } from 'react-chartjs-2';
 import axios from 'axios';
 
 class ChartChargesComponent extends Component {
@@ -32,7 +32,7 @@ class ChartChargesComponent extends Component {
     render() {
         return (
             <div>
-                <Line
+                <Bar
                     width="500px"
                     height="500px"
                     data={this.state.chartData}
