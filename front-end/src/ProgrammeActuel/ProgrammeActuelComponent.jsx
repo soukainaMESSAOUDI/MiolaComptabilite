@@ -134,12 +134,12 @@ class ProgrammeActuelComponent extends Component {
                     <Modal.Body>
                         <Form>
                             <Form.Group as={Col} controlId="formGridReference">
-                                <Form.Label>Référence :</Form.Label>
+                                <Form.Label style={{ float: "left" }}>Référence :</Form.Label>
                                 <Form.Control required name="reference" type="text" value={this.state.reference}
                                     autoComplete="off" onChange={this.partieChange} placeholder="Saisir la référence" />
                             </Form.Group >
                             <Form.Group as={Col} controlId="formGridPourcentage">
-                                <Form.Label>Pourcentage :</Form.Label>
+                                <Form.Label style={{ float: "left" }}>Pourcentage :</Form.Label>
                                 <Form.Control required name="pourcentage" type="number" value={this.state.pourcentage}
                                     autoComplete="off" onChange={this.partieChange} placeholder="Saisir le pourcentage" />
                             </Form.Group>
@@ -195,7 +195,7 @@ class ProgrammeActuelComponent extends Component {
                             <Card.Title>PE FORMATION DES FONCTIONNAIRES ET DES SALARIES EN
                             Master Internet des Objets : Logiciel et Analytique</Card.Title>
                             <Card.Text>
-                            <br />
+                                <br />
                                 <li>  Année universitaire : {programme.annee} </li>
                                 <br />
                                 <li>  Nombre des  étudiants inscrits : {programme.nombreInscrit} </li>

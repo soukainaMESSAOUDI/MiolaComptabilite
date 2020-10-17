@@ -3,6 +3,7 @@ import axios from 'axios';
 import ChartPartiesComponent from './ChartPartiesComponent';
 import { Row, Card, CardDeck } from 'react-bootstrap';
 import ChartChargesComponent from './ChartChargesComponent';
+import TableParties from './TableParties';
 import Navbar from "../Navigation/Navbar";
 
 class DashboardComponent extends Component {
@@ -20,7 +21,6 @@ class DashboardComponent extends Component {
 
     componentWillMount() {
         this.getPartieCharge();
-
         this.getProgrammeActuel();
         this.getChartData();
         this.getChartData2();
@@ -82,13 +82,9 @@ class DashboardComponent extends Component {
 
         axios.get("http://localhost:8080/charges")
             .then(response => {
-
-
                 for (const dataObj of response.data) {
                     listD.push(dataObj.designation);
-
                     listS.push(dataObj.creditDisponible);
-
                 }
                 console.log("this is d2 " + listD);
                 console.log("this is s2 somme" + listS);
@@ -99,7 +95,7 @@ class DashboardComponent extends Component {
                 labels: listD,
                 datasets: [
                     {
-                        label: 'Credits',
+                        label: 'Somme',
                         data: listS,
                         backgroundColor: [
                             '#f3bbbf',
@@ -147,8 +143,11 @@ class DashboardComponent extends Component {
                         </Card>
                     </CardDeck>
                     <br />
+                    <br />
                     <Row>
                         <ChartPartiesComponent chartData={this.state.chartData} legendPosition="bottom" />
+                        <TableParties />
+
                     </Row>
                     <br />
                     <ChartChargesComponent chartData={this.state.chartData2} legendPosition="bottom" />

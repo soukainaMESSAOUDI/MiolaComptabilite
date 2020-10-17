@@ -45,6 +45,7 @@ export default class Professeur extends Component {
 	}
 
 	render() {
+		const styleLabel = { float: "left" };
 		return (
 			<>
 				<Navbar />
@@ -56,12 +57,12 @@ export default class Professeur extends Component {
 						<Form onSubmit={this.submitProfesseur} id="ProfesseurFormId">
 							<Card.Body>
 								<Form.Group as={Col} controlId="formGridCouleur">
-									<Form.Label> Le nom complet </Form.Label>
+									<Form.Label style={styleLabel}> Nom complet </Form.Label>
 									<Form.Control name="nomComplet" autoComplete="off" required type="text"
-										value={this.state.nomComplet} onChange={this.professeurChange} placeholder="Entrez Le Nom Complet " />
+										value={this.state.nomComplet} onChange={this.professeurChange} placeholder="Entrez le nom complet " />
 								</Form.Group>
 								<Form.Group as={Col} controlId="formGridGrade">
-									<Form.Label> Le grade </Form.Label>
+									<Form.Label style={styleLabel}> Grade </Form.Label>
 									<select class="form-control" name="grade" onChange={this.professeurChange} value={this.state.grade} onChange={this.professeurChange}>
 										<option>PA</option>
 										<option>PH</option>
@@ -70,7 +71,7 @@ export default class Professeur extends Component {
 								</Form.Group>
 
 								<Form.Group as={Col} controlId="formGridGrade">
-									<Form.Label> Le Statut </Form.Label>
+									<Form.Label style={styleLabel}>Statut </Form.Label>
 									<select class="form-control" name="type" onChange={this.professeurChange} value={this.state.type} onChange={this.professeurChange}>
 										<option>Interne</option>
 										<option>Externe</option>
@@ -78,14 +79,14 @@ export default class Professeur extends Component {
 								</Form.Group>
 
 								<Form.Group as={Col} controlId="formGridCouleur">
-									<Form.Label> Volume horaire </Form.Label>
+									<Form.Label style={styleLabel}> Volume horaire </Form.Label>
 									<Form.Control name="nbrHeur" autoComplete="off" required type="number"
-										value={this.state.nbrHeur} onChange={this.professeurChange} placeholder="Entrez Le Volume horaire " />
+										value={this.state.nbrHeur} onChange={this.professeurChange} placeholder="Entrez le volume horaire " />
 								</Form.Group>
 							</Card.Body>
 							<Card.Footer style={{ "textAlign": "right" }}>
 								<Button size="sm" variant="success" type="submit" >  Enregistrer </Button>{' '}
-								<Button size="sm" variant="info" type="reset">  Reset </Button>
+								<Button size="sm" variant="info" type="reset">  Réinitialiser </Button>
 							</Card.Footer>
 						</Form>
 					</Card>

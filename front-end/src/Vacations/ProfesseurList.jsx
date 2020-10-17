@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Card, Table } from 'react-bootstrap';
+import { Button, Card, Table, Container } from 'react-bootstrap';
 import axios from 'axios';
 import Vacation from './Vacation';
 import "./Wizard.css";
@@ -49,22 +49,25 @@ export default class ProfesseurList extends Component {
 
 	render() {
 		return (
-			<>
+			<div>
 				<Navbar />
-				<div className="stepper-container-horizontal">
+				<Container>
+					<h3>Vacations du programme actuel</h3>
 					<Vacation />
-					<Card>
-						<Card.Header className="text-center">
-							<h2>Etat de paiement </h2>
-						</Card.Header>
-						<Card.Body>
-							<Button size="sm" variant="btn btn-primary my-3" marginRight='O' onClick={this.addProfesseur}>
-								Ajouter un Professeur
-             </Button>
-							<Table><thead>
-								<tr className=" bg-dark text-white">
+					<br/>
+					<div className="container">
+						<div className="row">
+							<Button type="button" variant="info" className="button-add" style={{ width: "220px" }}
+								onClick={this.addProfesseur}>Ajouter un Professeur</Button>
+						</div>
+						<br />
+					</div>
+					<div className="row">
+						<Table striped bordered hover>
+							<thead>
+								<tr>
 									<th>Nom Complet</th>
-									<th>Le Grade  </th>
+									<th>Grade  </th>
 									<th>Volume Horaire </th>
 									<th>Statut</th>
 									<th>Salaire Brute</th>
@@ -72,30 +75,29 @@ export default class ProfesseurList extends Component {
 									<th>Nombre de jours</th>
 								</tr>
 							</thead>
-								<tbody>
-									{this.state.professeurs.length === 0 ?
-										<tr align="center">
-											<td colSpan="6">Aucun professeur disponible.</td>
-										</tr> :
-										this.state.professeurs.map((professeur) => (
-											<tr key={professeur.id}>
-												<td>{professeur.nomComplet}</td>
-												<td>{professeur.grade}</td>
-												<td>{professeur.nbrHeur} </td>
-												<td>{professeur.type} </td>
-												<td>{professeur.brute} MAD </td>
-												<td>{professeur.net} MAD </td>
-												<td>{professeur.jours} </td>
-											</tr>
+							<tbody>
+								{this.state.professeurs.length === 0 ?
+									<tr align="center">
+										<td colSpan="6">Aucun professeur disponible.</td>
+									</tr> :
+									this.state.professeurs.map((professeur) => (
+										<tr key={professeur.id}>
+											<td>{professeur.nomComplet}</td>
+											<td>{professeur.grade}</td>
+											<td>{professeur.nbrHeur} </td>
+											<td>{professeur.type} </td>
+											<td>{professeur.brute} MAD </td>
+											<td>{professeur.net} MAD </td>
+											<td>{professeur.jours} </td>
+										</tr>
 
-										))
-									}
-								</tbody>
-							</Table>
-						</Card.Body>
-					</Card>
-				</div>
-			</>
+									))
+								}
+							</tbody>
+						</Table>
+					</div>
+				</Container>
+			</div>
 		);
 	}
 }

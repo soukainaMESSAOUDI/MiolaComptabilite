@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Bar } from 'react-chartjs-2';
+import { Bar, Doughnut } from 'react-chartjs-2';
 import axios from 'axios';
 
 class ChartPartiesComponent extends Component {
@@ -33,8 +33,8 @@ class ChartPartiesComponent extends Component {
     render() {
         return (
             <div>
-                <Bar
-                width="1100px"
+                <Doughnut
+                width="600px"
                 height="500px"
                     data={this.state.chartData}
                     options={{

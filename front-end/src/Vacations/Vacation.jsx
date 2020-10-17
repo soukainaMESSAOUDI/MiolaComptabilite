@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ButtonGroup, Button, Card, Table, Jumbotron } from 'react-bootstrap';
+import { CardDeck, Card } from 'react-bootstrap';
 import axios from 'axios';
 
 class Vacation extends Component {
@@ -26,16 +26,29 @@ class Vacation extends Component {
                 {	this.state.vacation.length === 0 ?
                     <h3 align="center">Aucune partie disponible.</h3>
                     :
-                    <Card className="stepper-container-horizontal">
-                        <Card.Header>
-                            <h2>Le buget alloué pour les vacations:</h2>
-                            <h3> {vacation.somme} MAD</h3>
-                        </Card.Header>
-                        <Card.Body>
-                            <h4>Le Total des vacations: {vacation.totalVacation} MAD</h4>
-                            <h4>Le Reste du Budget: {vacation.resteVacation} MAD</h4>
+                    <CardDeck>
+                        <Card style={{ backgroundColor: '#e6f7ff' }} >
+                            <Card.Header>Buget alloué aux vacations :</Card.Header>
+                            <Card.Body >
+                                {vacation.somme} MAD
                         </Card.Body>
-                    </Card>
+                        </Card>
+                        <Card style={{ backgroundColor: '#e6f7ff' }}>
+                            <Card.Header>Total des vacations : </Card.Header>
+                            <Card.Body>
+                                {vacation.totalVacation} MAD
+                            </Card.Body>
+                        </Card>
+
+                        <Card style={{ backgroundColor: '#e6f7ff' }} >
+                            <Card.Header>Reste du Budget : :</Card.Header>
+                            <Card.Body >
+                                {vacation.resteVacation} MAD
+                        </Card.Body>
+                        </Card>
+                    </CardDeck>
+
+
                 }
             </div>
         );
