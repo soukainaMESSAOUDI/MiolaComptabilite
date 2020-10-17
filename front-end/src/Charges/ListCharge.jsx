@@ -56,7 +56,7 @@ class ListCharge extends Component {
                                     <tr key={partie.id}>
 
                                      {/*   <tr key={partie.id} onClick={this.ChargeList} className="row1"> */}
-                                            <td>{partie.currentYear}</td>
+                                            <td>{partie.annee}</td>
                                             <td>{partie.somme}</td>
                                             <td>{partie.reste}</td>
                                         </tr>

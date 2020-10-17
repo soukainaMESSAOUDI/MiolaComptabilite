@@ -16,11 +16,13 @@ import { SET_CURRENT_USER } from "./Actions/types";
 import { logout } from "./Actions/securityAction";
 import SecuredRoute from "./SecurityUtils/SecureRoute";
 import DashboardComponent from './Dashboard/DashboardComponent'
+
 import ChargeComponent from './Charges/ChargeComponent';
-import Professeur from './Vacations/Professeur';
-import ProfesseurList from './Vacations/ProfesseurList';
 import ListCharge from './Charges/ListCharge';
 
+import Professeur from './Vacations/Professeur';
+import ProfesseurList from './Vacations/ProfesseurList';
+import Vacations from './Vacations/Vacations';
 
 
 const jwtToken = localStorage.jwtToken;
@@ -63,8 +65,9 @@ function App() {
             <SecuredRoute path="/programme-actuel" exact component={ProgrammeActuel} />
             <SecuredRoute path="/logout" exact component={Header} />
             <SecuredRoute path="/charges" exact component={ChargeComponent} />
-            <SecuredRoute path="/vacations" exact component={Professeur} />
-            <SecuredRoute path="/Professeurs" exact component={ProfesseurList} />
+            <SecuredRoute path="/vacations" exact component={Vacations} />
+            <SecuredRoute path="/professeurs" exact component={ProfesseurList} />
+            <SecuredRoute path="/professeur" exact component={Professeur} />
             <SecuredRoute path="/list-charges" exact component={ListCharge} />
 
 
