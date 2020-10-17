@@ -4,11 +4,13 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 class Welcome extends Component {
+
   componentDidMount() {
     if (this.props.security.validToken) {
       this.props.history.push("/dashboard");
     }
   }
+  
   render() {
     return (
       <div className="landing">

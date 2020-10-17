@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { ButtonGroup, Button, Card, CardDeck } from 'react-bootstrap';
+import { Card, CardDeck } from 'react-bootstrap';
 import axios from 'axios';
-
-
 
 class CardCharge extends Component {
     constructor(props) {
@@ -35,7 +33,7 @@ class CardCharge extends Component {
                             {partie.somme} MAD
                         </Card.Body>
                     </Card>
-                    <Card style={{ backgroundColor: '#e6f7ff'}}>
+                    <Card style={{ backgroundColor: '#e6f7ff' }}>
                         <Card.Header> Budget restant : </Card.Header>
                         <Card.Body>
                             {partie.reste} MAD

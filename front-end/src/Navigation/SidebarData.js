@@ -1,8 +1,6 @@
 import React from 'react';
 import { faListAlt, faTachometerAlt, faPlusSquare, faUserTie, faFileInvoiceDollar, faSignOutAlt, faThLarge } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Header from "../Account/Header";
-import { logout } from "../Actions/securityAction";
 
 
 export const SidebarData = [
@@ -50,7 +48,7 @@ export const SidebarData = [
 
     {
         title: 'Déconnexion',
-        path:'/logout',
+        path: '/logout',
         icon: <FontAwesomeIcon icon={faSignOutAlt} />,
         cName: 'nav-text'
     },

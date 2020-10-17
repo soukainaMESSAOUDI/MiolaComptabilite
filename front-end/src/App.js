@@ -16,7 +16,7 @@ import { SET_CURRENT_USER } from "./Actions/types";
 import { logout } from "./Actions/securityAction";
 import SecuredRoute from "./SecurityUtils/SecureRoute";
 import DashboardComponent from './Dashboard/DashboardComponent'
-
+import DetailProgram from './Programmes/DetailProgramme';
 import ChargeComponent from './Charges/ChargeComponent';
 import ListCharge from './Charges/ListCharge';
 
@@ -69,6 +69,8 @@ function App() {
             <SecuredRoute path="/professeurs" exact component={ProfesseurList} />
             <SecuredRoute path="/professeur" exact component={Professeur} />
             <SecuredRoute path="/list-charges" exact component={ListCharge} />
+            <SecuredRoute path="/detail-program" exact component={DetailProgram} />
+
 
 
 

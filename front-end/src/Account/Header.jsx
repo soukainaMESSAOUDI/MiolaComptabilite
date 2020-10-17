@@ -5,17 +5,16 @@ import { Image } from 'react-bootstrap';
 import { connect } from "react-redux";
 import { logout } from "../Actions/securityAction";
 import "../Navigation/Navbar.css";
-import Navbar from "../Navigation/Navbar"
 import { IconContext } from "react-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 
 class Header extends Component {
+
   logout() {
     this.props.logout();
     window.location.href = "/";
   }
+
   componentDidMount() {
     if (this.props.security.validToken) {
       this.logout(this);
@@ -24,7 +23,6 @@ class Header extends Component {
 
   render() {
     const { validToken, user } = this.props.security;
-
     const userIsAuthenticated = (
       <div className="o">
         <IconContext.Provider value={{ color: '#FFFFFF' }}>
@@ -39,7 +37,6 @@ class Header extends Component {
             </Link>
               </li>
             </ul>
-
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
                 <Link className="nav-link" to="/dashboard">
@@ -73,7 +70,6 @@ class Header extends Component {
     // }
 
     return (
-
       <div className="container">
         {/* <IconContext.Provider value={{ color: '#fff' }}>
           <Link className="navbar-brand" to="/">
@@ -92,6 +88,7 @@ class Header extends Component {
     );
   }
 }
+
 Header.propTypes = {
   logout: PropTypes.func.isRequired,
   security: PropTypes.object.isRequired
@@ -103,5 +100,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logout }
-)(Header);
+  { logout })
+  (Header);

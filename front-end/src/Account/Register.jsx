@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { createNewUser } from "../Actions/securityAction";
-import { Button, Container, Form, Row, Image, Col } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classnames from "classnames";
@@ -137,6 +137,7 @@ const mapStateToProps = state => ({
   errors: state.errors,
   security: state.security
 });
+
 export default connect(
   mapStateToProps,
   { createNewUser }

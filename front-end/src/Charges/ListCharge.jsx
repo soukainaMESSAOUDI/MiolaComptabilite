@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import ChargeComponent from './ChargeComponent';
 import Navbar from '../Navigation/Navbar';
-import { Container, Button, Modal, Form, Col, Table, Row } from 'react-bootstrap';
-
-
+import { Container, Button, Table, Row } from 'react-bootstrap';
 
 class ListCharge extends Component {
     constructor(props) {
@@ -23,13 +20,13 @@ class ListCharge extends Component {
     componentDidMount() {
         axios.get("http://localhost:8080/all-charges").then((res) => {
             this.setState({ parties: res.data });
-
         });
     }
 
     ChargeList = () => {
         this.props.history.push('/charges');
     }
+
     render() {
         return (
             <div>
@@ -55,16 +52,14 @@ class ListCharge extends Component {
                                 partie =>
                                     <tr key={partie.id}>
 
-                                     {/*   <tr key={partie.id} onClick={this.ChargeList} className="row1"> */}
-                                            <td>{partie.annee}</td>
-                                            <td>{partie.somme}</td>
-                                            <td>{partie.reste}</td>
-                                        </tr>
+                                        {/*   <tr key={partie.id} onClick={this.ChargeList} className="row1"> */}
+                                        <td>{partie.annee}</td>
+                                        <td>{partie.somme}</td>
+                                        <td>{partie.reste}</td>
+                                    </tr>
                             )}
                         </tbody>
-
                     </Table>
-
                 </div>
                 </Container>
             </div>

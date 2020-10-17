@@ -134,7 +134,7 @@ class ChargeComponent extends Component {
 
                     <div className="container">
                         <div className="row">
-                            <Button variant="info" onClick={this.ajouterHandler} style={{marginBottom:"20px"}}>Ajouter </Button>
+                            <Button variant="info" onClick={this.ajouterHandler} style={{ marginBottom: "20px" }}>Ajouter </Button>
                         </div>
                     </div>
                     <div className="row">

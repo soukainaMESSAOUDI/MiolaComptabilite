@@ -97,6 +97,10 @@ class ListBudgetComponent extends Component {
     getSelectedParties() {
     }
 
+    goToDetail = () => {
+        this.props.history.push('/detail-program');
+    }
+
     render() {
         let detailModalClose = () => this.setState({ detailModalShow: false });
 
@@ -209,7 +213,8 @@ class ListBudgetComponent extends Component {
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    ===
+
+
                                                             </tbody>
                                                             </Table>
 

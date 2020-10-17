@@ -39,16 +39,13 @@ class Vacation extends Component {
                                 {vacation.totalVacation} MAD
                             </Card.Body>
                         </Card>
-
                         <Card style={{ backgroundColor: '#e6f7ff' }} >
-                            <Card.Header>Reste du Budget : :</Card.Header>
+                            <Card.Header>Reste du Budget :</Card.Header>
                             <Card.Body >
                                 {vacation.resteVacation} MAD
                         </Card.Body>
                         </Card>
                     </CardDeck>
-
-
                 }
             </div>
         );

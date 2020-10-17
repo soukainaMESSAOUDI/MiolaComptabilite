@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Card, Table, Container } from 'react-bootstrap';
+import { Button, Table, Container } from 'react-bootstrap';
 import axios from 'axios';
 import Vacation from './Vacation';
 import "./Wizard.css";
@@ -54,7 +54,7 @@ export default class ProfesseurList extends Component {
 				<Container>
 					<h3>Vacations du programme actuel</h3>
 					<Vacation />
-					<br/>
+					<br />
 					<div className="container">
 						<div className="row">
 							<Button type="button" variant="info" className="button-add" style={{ width: "220px" }}

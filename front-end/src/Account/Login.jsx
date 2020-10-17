@@ -56,7 +56,6 @@ class Login extends Component {
       <>
         <Mybar />
         <div class="form-login">
-
           <h4 style={{ marginBottom: "30px", fontFamily: "Roboto" }}>Connectez-vous</h4>
           <Form onSubmit={this.onSubmit} className="login-form">
             <input
@@ -72,7 +71,6 @@ class Login extends Component {
             {errors.username && (
               <div className="invalid-feedback">{errors.username}</div>
             )}
-
             <input
               type="password"
               className={classnames("form-control form-control-lg", {
@@ -86,9 +84,7 @@ class Login extends Component {
             {errors.password && (
               <div className="invalid-feedback">{errors.password}</div>
             )}
-
             <input type="submit" className="btn btn-dark btn-lg" value="Connexion" />
-
             <p class="message">Vous n'êtes pas inscrit ? <a href="/register">Inscrivez-vous maintenant</a></p>
           </Form>
         </div>
