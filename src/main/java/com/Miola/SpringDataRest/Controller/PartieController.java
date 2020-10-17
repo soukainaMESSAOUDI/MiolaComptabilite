@@ -65,6 +65,19 @@ public class PartieController {
 		return partieService.getALLCharges();
 	}
 
+	@RequestMapping("/allParties")
+	public List<Partie> getAll() {
+		return partieService.getParties();
+	}
 
+	@RequestMapping("/allVacations")
+	public List<Partie> getAllVacation() {
+		return partieService.getALLVacation();
+	}
+
+	@RequestMapping("/vacation")
+	public Partie getVacation() {
+		return partieService.getCurrentVacation();
+	}
 
 }

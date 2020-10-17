@@ -65,17 +65,37 @@ public class PartieService {
 		return selected;
 	}
 
-	public List<Partie> getAll() {
+	public List<Partie> getParties() {
 		return partieRepo.findAll();
 	}
-	
-	public List<Partie> getALLCharges(){
-		List<Partie> parties= this.getAll();
-		List charges=new ArrayList();
-		for(Partie p:parties) {
-			if(p.getDesignation().equals("Charges"))
+
+	public List<Partie> getALLCharges() {
+		List<Partie> parties = this.getParties();
+		List charges = new ArrayList();
+		for (Partie p : parties) {
+			if (p.getDesignation().equals("Charges"))
 				charges.add(p);
 		}
 		return charges;
+	}
+
+	public List<Partie> getALLVacation() {
+		List<Partie> parties = this.getParties();
+		List vacations = new ArrayList();
+		for (Partie p : parties) {
+			if (p.getDesignation().equals("Vacations"))
+				vacations.add(p);
+		}
+		return vacations;
+	}
+
+	public Partie getCurrentVacation() {
+		Partie selected = new Partie();
+		for (Partie partie : getAllParties()) {
+			if (partie.getDesignation().equals("Vacations")) {
+				selected = partie;
+			}
+		}
+		return selected;
 	}
 }

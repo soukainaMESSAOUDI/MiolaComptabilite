@@ -42,6 +42,10 @@ public class Partie {
 	@JsonIgnore
 	public List<Charge> charges;
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "partie")
+	@JsonIgnore
+	public List<Professeur> profs;
+
 	public Double getSomme() {
 		return this.pourcentage * this.programme.getBudget() / 100;
 	}
@@ -53,8 +57,20 @@ public class Partie {
 		}
 		return this.getSomme() - temp;
 	}
-	
-	public String getCurrentYear() {
-		return this.programme.getAnnee();
+
+	public String getAnnee() {
+		return programme.getAnnee();
 	}
+
+	public Double getTotalVacation() {
+		Double s = .0;
+		for (Professeur p : profs)
+			s += p.getNet();
+		return s;
+	}
+
+	public Double getResteVacation() {
+		return this.getSomme() - this.getTotalVacation();
+	}
+
 }
